@@ -1,0 +1,92 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <div *ngIf="!isEdit && !isInsert">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <img width="200" src="assets/img/logo.png">
+  </div>
+  <table class="table table-dark" *ngIf="isEdit || isInsert">
+    <tr>
+      <td>
+        <input type="button" value="Kaydet" (click)="Save()" class="btn btn-success">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Title :
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="personModel.name.title">
+      </td>
+      <td>
+        Name :
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="personModel.name.first">
+      </td>
+    <tr>
+      <td>
+        Surname :
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="personModel.name.last">
+      </td>
+      <td>
+        Email :
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="personModel.email">
+      </td>
+    </tr>
+    <tr *ngIf="isInsert">
+      <td>
+        <div>UserName :</div>
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="personModel.username">
+      </td>
+      <td>
+        <div>Gender :</div>
+      </td>
+      <td>
+        <select name="gender" id="gender" [(ngModel)]="personModel.gender">
+          <option *ngFor = "let item of optionSelect"  [ngValue]="item">{{item}}</option>          
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <td>
+          Name: <input type="text" #userSearchInput>
+        </td>
+        <td>
+          <button type="button" class="btn btn-success btn-sm move-right" (click)="clickInsert()">New Record</button>
+        </td>
+      </tr>
+      <tr>
+        <th scope="col"><input [disabled]="!isPreviewActive" type="button" value="<== Önceki" (click)="Preview()" class="btn btn-primary">
+          #</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gender <input [disabled]="!isNextActive" type="button" value="Sonraki==>" class="btn btn-primary"
+            (click)="Next()"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let people of peopleList">
+        <th scope="row">
+          <button type="button" class="btn btn-success btn-sm move-right" (click)="Edit(people)">Edit</button>
+          <button style="margin-left:20px" type="button" class="btn btn-danger btn-sm move-right" (click)="Delete(people)">Sil</button>
+        </th>
+        <td>{{people.name.first}}</td>
+        <td>{{people.email}}</td>
+        <td>{{people.gender}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
